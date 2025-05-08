@@ -38,6 +38,10 @@ h1 {
 	flex-direction: column;
 }
 
+li {
+	margin-bottom: 5px;
+}
+
 #content {
 	grid-column: 2;
 }
