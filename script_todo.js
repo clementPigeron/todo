@@ -58,12 +58,8 @@ function displayTextarea(currentli) {
         const area1 = document.getElementById(`text${precedingText}`);
         area1.style.display = "none";
     }
-    
-    // const task = document.getElementById(`customtask${currentli}`);
-    // const title = document.getElementById(`title${currentli}`);
-    const area2 = document.getElementById(`text${currentli}`);
 
-    // title.textContent = task.value;
+    const area2 = document.getElementById(`text${currentli}`);
     area2.style.display = "block";
     precedingText = currentli;
 }
