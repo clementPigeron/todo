@@ -1,0 +1,62 @@
+img {
+    max-width: 100%;
+}
+
+html, body /*,#TODOlist*/ { height: 100% }
+body {
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0f/Grosser_Panda.JPG");
+	background-size: 30%;
+	margin: 0px;
+	height: 100%;
+}
+header {
+    display: block;
+    background-color: aquamarine;
+    /*box-sizing: border-box;*/
+    top: 0;
+	left: 0;
+    right: 0;
+}
+h1 {
+	margin: 0;
+}
+#topGradient {
+	background: linear-gradient(180deg, rgba(255,255,255,0) 60%, rgba(255,255,255,1) 100%);
+	height: 80px;
+	margin-top: 60px;
+}
+#TODOlist {
+	display: inline-block;
+	flex-direction: column;
+	background: white;
+}
+.ecrire:has(+input:checked) {
+    text-decoration: line-through;
+	background-color: rgb(243, 243, 243);
+}
+.ecrire {
+	border:0px;
+}
+.ecrire:hover {
+	border-color:transparent;
+	box-shadow: 0 0 0 2px #000000;
+}
+#myButton {
+	background-color:#009b00;
+	border-radius:28px;
+	border:2px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:18px;
+	padding:9px 13px;
+	text-decoration:none;
+}
+#myButton:hover {
+	background-color:#00e047;
+}
+#myButton:active {
+	position:relative;
+	top:2px;
+}
