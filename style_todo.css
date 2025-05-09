@@ -50,7 +50,17 @@ textarea {
 	margin: 10px;
 	width: 95%;
 	height: 100%;
+	box-sizing: border-box;
 	resize: none;
+}
+
+.bloccol {
+	height: 100%;
+}
+
+.title {
+	font-size: large;
+	font-weight: bold;
 }
 
 .ecrire:has(+input:checked) {

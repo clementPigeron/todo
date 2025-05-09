@@ -40,8 +40,9 @@ function deleteLine(currentli) {
 
 function addTextarea(currentli) {
     rightCol.insertAdjacentHTML("beforeend", 
-        `<div id="text${currentli}" style="display:none;">
-            <span id="title${currentli}"></span> 
+        `<div id="text${currentli}" style="display:none;" class="bloccol">
+            <span id="title${currentli}" class="title"></span>
+            <br> 
             <textarea id="textarea${currentli}"></textarea>
         </div>`
     );
