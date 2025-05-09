@@ -59,6 +59,8 @@ textarea {
 	height: 100%;
 	box-sizing: border-box;
 	resize: none;
+	border-radius: 20px;
+	padding: 15px;
 }
 
 .bloccol {
