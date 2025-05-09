@@ -14,7 +14,7 @@ body {
 
 header {
 	display: block;
-	background-color: aquamarine;
+	background-color: #CB6D51;
 	/*box-sizing: border-box;*/
 	top: 0;
 	left: 0;
@@ -24,6 +24,8 @@ header {
 
 h1 {
 	margin: 0;
+	color: white;
+	text-align: center;
 }
 
 .container {
@@ -36,6 +38,11 @@ h1 {
 	grid-column: 1;
 	display: inline-block;
 	flex-direction: column;
+}
+
+ol {
+	background-color: #CE7C56;
+	border-radius: 20px;
 }
 
 li {
@@ -78,12 +85,12 @@ textarea {
 }
 
 #myButton {
-	background-color: #009b00;
+	background-color: #CB6D51;
 	border-radius: 28px;
-	border: 2px solid #000000;
+	border: 2px solid #E69E7F;
 	display: inline-block;
 	cursor: pointer;
-	color: #000000;
+	color: white;
 	font-family: Arial;
 	font-size: 18px;
 	padding: 9px 13px;
@@ -91,7 +98,7 @@ textarea {
 }
 
 #myButton:hover {
-	background-color: #00e047;
+	background-color: #E69E7F;
 }
 
 #myButton:active {
