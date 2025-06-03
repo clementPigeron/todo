@@ -1,5 +1,8 @@
 const button = document.getElementById("myButton");
 const rightCol = document.getElementById('content');
+const saveButton = document.getElementById("saveButton");
+const clearButton = document.getElementById("clearButton");
+const recoverButton = document.getElementById("recoverButton");
 
 let lineNumber = 0;
 let lineQuantity = 0;
@@ -19,6 +22,55 @@ button.addEventListener("click", () => {
         title.textContent = input.value
         console.log(title.textContent)
     })
+})
+
+saveButton.addEventListener("click", () => {
+    localStorage.setItem('lineQuantity', lineQuantity)
+    localStorage.setItem('lineNumber', lineNumber)
+    localStorage.setItem('precedingText', precedingText)
+
+    const ol = document.querySelector('ol');
+    localStorage.setItem('ol', ol.innerHTML)
+
+    localStorage.setItem('rightCol', rightCol.innerHTML)
+
+    const tasks = document.querySelectorAll(".ecrire")
+    const textareas = document.querySelectorAll(".area")
+
+    if (lineQuantity>0) {
+        for (i=0 ; i<lineQuantity ; i++) {
+            localStorage.setItem(tasks[i].id, tasks[i].value)
+            localStorage.setItem(textareas[i].id, textareas[i].value)
+        }
+    }
+})
+
+clearButton.addEventListener("click", () => {
+    localStorage.clear()
+})
+
+recoverButton.addEventListener("click", () => {
+    lineQuantity = localStorage.getItem("lineQuantity")
+    lineNumber = localStorage.getItem("lineNumber")
+    precedingText = localStorage.getItem("precedingText")
+
+    if (lineQuantity>0) {
+        const list = document.getElementById("list");
+        list.insertAdjacentHTML("beforeend","<ol></ol>")
+
+        const ol = document.querySelector('ol');
+        ol.insertAdjacentHTML("beforeend", localStorage.getItem('ol'))
+
+        rightCol.insertAdjacentHTML("beforeend", localStorage.getItem('rightCol'))
+
+        const tasks = document.querySelectorAll(".ecrire")
+        const textareas = document.querySelectorAll(".area")
+
+        for (i=0 ; i<lineQuantity ; i++) {
+            tasks[i].value = localStorage.getItem(tasks[i].id)
+            textareas[i].value = localStorage.getItem(textareas[i].id)
+        }
+    }
 })
 
 function addLine(currentli) {
@@ -63,7 +115,7 @@ function addTextarea(currentli) {
         `<div id="text${currentli}" style="display:none;" class="bloccol">
             <span id="title${currentli}" class="title"></span>
             <br> 
-            <textarea id="textarea${currentli}"></textarea>
+            <textarea id="textarea${currentli}" class="area"></textarea>
         </div>`
     );
 }
