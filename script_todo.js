@@ -26,7 +26,7 @@ function addLine(currentli) {
         `<li id="line${currentli}">
             <input placeholder="écrire" class="ecrire" id="customtask${currentli}"> 
             <input type="checkbox"> 
-            <button onclick="deleteLine(${currentli});deleteTextarea(${currentli})"> - </button> 
+            <button onclick="deleteLine(${currentli});deleteTextarea(${currentli})"> 🗑️​ </button> 
             <button onclick="displayTextarea(${currentli})"> > </button>
         </li>`
     );
@@ -62,5 +62,14 @@ function displayTextarea(currentli) {
 
     const area2 = document.getElementById(`text${currentli}`);
     area2.style.display = "block";
+
+    if (!!document.getElementById(`line${precedingText}`)) {
+        const li1 = document.getElementById(`line${precedingText}`);
+        li1.style.backgroundColor ="";
+    }
+
+    const li2 = document.getElementById(`line${currentli}`);
+    li2.style.backgroundColor ="#dba186";
+
     precedingText = currentli;
 }
