@@ -1,8 +1,8 @@
-const ol = document.querySelector('ol');
 const button = document.getElementById("myButton");
 const rightCol = document.getElementById('content');
 
 let lineNumber = 0;
+let lineQuantity = 0;
 let precedingText = 0;
 
 button.addEventListener("click", () => {
@@ -22,6 +22,14 @@ button.addEventListener("click", () => {
 })
 
 function addLine(currentli) {
+
+    if (lineQuantity===0) {
+        const list = document.getElementById("list");
+        list.insertAdjacentHTML("beforeend","<ol></ol>")
+    }
+
+    const ol = document.querySelector('ol');
+
     ol.insertAdjacentHTML("beforeend",
         `<li id="line${currentli}">
             <input placeholder="écrire" class="ecrire" id="customtask${currentli}"> 
@@ -30,12 +38,24 @@ function addLine(currentli) {
             <button onclick="displayTextarea(${currentli})"> > </button>
         </li>`
     );
+
+    lineQuantity++;
 }
 
 function deleteLine(currentli) {
-    if (typeof ondeleteline != "undefined") { ondeleteline() };
+    if (typeof ondeleteline != "undefined") { 
+        ondeleteline() 
+    };
+
     let line = document.getElementById(`line${currentli}`);
     line.remove();
+    lineQuantity--;
+
+    if (lineQuantity===0) {
+        const ol = document.querySelector('ol');
+        ol.remove()
+    }
+
 }
 
 function addTextarea(currentli) {
