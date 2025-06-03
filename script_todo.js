@@ -1,12 +1,11 @@
 const button = document.getElementById("myButton");
 const rightCol = document.getElementById('content');
-const saveButton = document.getElementById("saveButton");
-const clearButton = document.getElementById("clearButton");
-const recoverButton = document.getElementById("recoverButton");
 
 let lineNumber = 0;
 let lineQuantity = 0;
 let precedingText = 0;
+
+recoverAll()
 
 button.addEventListener("click", () => {
     lineNumber++;
@@ -15,62 +14,20 @@ button.addEventListener("click", () => {
     addTextarea(lineNumber);
 
     const input = document.getElementById(`customtask${lineNumber}`);
+    const inputarea = document.getElementById(`text${lineNumber}`);
 
     input.addEventListener("input", () => {
         let currentli = input.id.match(/(\d+)/);
         const title = document.getElementById(`title${currentli[0]}`);
         title.textContent = input.value
-        console.log(title.textContent)
+        saveAll()
     })
-})
 
-saveButton.addEventListener("click", () => {
-    localStorage.setItem('lineQuantity', lineQuantity)
-    localStorage.setItem('lineNumber', lineNumber)
-    localStorage.setItem('precedingText', precedingText)
+    inputarea.addEventListener("input", () => {
+        saveAll()
+    })
 
-    const ol = document.querySelector('ol');
-    localStorage.setItem('ol', ol.innerHTML)
-
-    localStorage.setItem('rightCol', rightCol.innerHTML)
-
-    const tasks = document.querySelectorAll(".ecrire")
-    const textareas = document.querySelectorAll(".area")
-
-    if (lineQuantity>0) {
-        for (i=0 ; i<lineQuantity ; i++) {
-            localStorage.setItem(tasks[i].id, tasks[i].value)
-            localStorage.setItem(textareas[i].id, textareas[i].value)
-        }
-    }
-})
-
-clearButton.addEventListener("click", () => {
-    localStorage.clear()
-})
-
-recoverButton.addEventListener("click", () => {
-    lineQuantity = localStorage.getItem("lineQuantity")
-    lineNumber = localStorage.getItem("lineNumber")
-    precedingText = localStorage.getItem("precedingText")
-
-    if (lineQuantity>0) {
-        const list = document.getElementById("list");
-        list.insertAdjacentHTML("beforeend","<ol></ol>")
-
-        const ol = document.querySelector('ol');
-        ol.insertAdjacentHTML("beforeend", localStorage.getItem('ol'))
-
-        rightCol.insertAdjacentHTML("beforeend", localStorage.getItem('rightCol'))
-
-        const tasks = document.querySelectorAll(".ecrire")
-        const textareas = document.querySelectorAll(".area")
-
-        for (i=0 ; i<lineQuantity ; i++) {
-            tasks[i].value = localStorage.getItem(tasks[i].id)
-            textareas[i].value = localStorage.getItem(textareas[i].id)
-        }
-    }
+    saveAll()
 })
 
 function addLine(currentli) {
@@ -108,6 +65,7 @@ function deleteLine(currentli) {
         ol.remove()
     }
 
+    saveAll()
 }
 
 function addTextarea(currentli) {
@@ -124,6 +82,7 @@ function deleteTextarea(currentli) {
     let area = document.getElementById(`text${currentli}`);
     area.remove();
     precedingText = 0;
+    saveAll()
 }
 
 function displayTextarea(currentli) {
@@ -144,4 +103,66 @@ function displayTextarea(currentli) {
     li2.style.backgroundColor ="#dba186";
 
     precedingText = currentli;
+}
+
+function saveAll() {
+    localStorage.setItem('lineQuantity', lineQuantity)
+    localStorage.setItem('lineNumber', lineNumber)
+    localStorage.setItem('precedingText', precedingText)
+
+    const ol = document.querySelector('ol');
+    localStorage.setItem('ol', ol.innerHTML)
+
+    localStorage.setItem('rightCol', rightCol.innerHTML)
+
+    const tasks = document.querySelectorAll(".ecrire")
+    const textareas = document.querySelectorAll(".area")
+
+    if (lineQuantity>0) {
+        for (i=0 ; i<lineQuantity ; i++) {
+            localStorage.setItem(tasks[i].id, tasks[i].value)
+            localStorage.setItem(textareas[i].id, textareas[i].value)
+        }
+    }
+}
+
+function recoverAll() {
+    if (localStorage.getItem("lineQuantity")===null) {
+        return
+    }
+
+    lineQuantity = localStorage.getItem("lineQuantity")
+    lineNumber = localStorage.getItem("lineNumber")
+    precedingText = localStorage.getItem("precedingText")
+
+    if (lineQuantity>0) {
+        const list = document.getElementById("list");
+        list.insertAdjacentHTML("beforeend","<ol></ol>")
+
+        const ol = document.querySelector('ol');
+        ol.insertAdjacentHTML("beforeend", localStorage.getItem('ol'))
+
+        rightCol.insertAdjacentHTML("beforeend", localStorage.getItem('rightCol'))
+
+        const tasks = document.querySelectorAll(".ecrire")
+        const textareas = document.querySelectorAll(".area")
+
+        for (i=0 ; i<lineQuantity ; i++) {
+            tasks[i].value = localStorage.getItem(tasks[i].id)
+            textareas[i].value = localStorage.getItem(textareas[i].id)
+
+            const thisTask = tasks [i]
+
+            thisTask.addEventListener("input", () => {
+                let currentli = thisTask.id.match(/(\d+)/);
+                const title = document.getElementById(`title${currentli[0]}`);
+                title.textContent = thisTask.value
+                saveAll()
+            })
+
+            textareas[i].addEventListener("input", () => {
+                saveAll()
+            })
+        }
+    }
 }
