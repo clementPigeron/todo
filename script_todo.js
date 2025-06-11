@@ -15,7 +15,7 @@ button.addEventListener("click", () => {
 
     const input = document.getElementById(`customtask${lineNumber}`);
     const inputarea = document.getElementById(`text${lineNumber}`);
-    const checkbox = document.getElementById(`done${currentli}`);
+    const checkbox = document.getElementById(`done${lineNumber}`);
 
     input.addEventListener("input", () => {
         let currentli = input.id.match(/(\d+)/);
