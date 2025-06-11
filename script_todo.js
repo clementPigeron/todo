@@ -7,6 +7,8 @@ let precedingText = 0;
 
 recoverAll()
 
+instructionsDisplay()
+
 button.addEventListener("click", () => {
     lineNumber++;
 
@@ -32,12 +34,24 @@ button.addEventListener("click", () => {
         saveAll()
     })
 
+    instructionsDisplay()
     saveAll()
 })
 
+function instructionsDisplay() {
+
+    const instructionBox = document.getElementById("instructions");
+
+    if (lineQuantity==0) {
+        instructionBox.innerHTML = '<i id="oui">Pour ajouter des tâches, cliquer sur le bouton "+" ci-dessous</i>';
+    } else {
+        instructionBox.innerHTML = "";
+    }
+}
+
 function addLine(currentli) {
 
-    if (lineQuantity===0) {
+    if (lineQuantity==0) {
         const list = document.getElementById("list");
         list.insertAdjacentHTML("beforeend","<ol></ol>")
     }
@@ -70,6 +84,7 @@ function deleteLine(currentli) {
         ol.remove()
     }
 
+    instructionsDisplay()
     saveAll()
 }
 
@@ -116,8 +131,10 @@ function saveAll() {
     localStorage.setItem('precedingText', precedingText)
 
     const ol = document.querySelector('ol');
-    localStorage.setItem('ol', ol.innerHTML)
-
+    if (lineQuantity!=0) {
+        localStorage.setItem('ol', ol.innerHTML)
+    }
+    
     localStorage.setItem('rightCol', rightCol.innerHTML)
 
     const tasks = document.querySelectorAll(".ecrire")

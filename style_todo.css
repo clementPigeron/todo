@@ -28,6 +28,14 @@ h1 {
 	text-align: center;
 }
 
+#instructions {
+	margin-bottom: 10px;
+}
+
+#oui {
+	background-color: white;
+}
+
 .container {
 	display: grid;
 	grid-template-columns: 1.5fr 2fr;
@@ -44,6 +52,7 @@ h1 {
 	background-color: #CE7C56;
 	border-radius: 20px;
 	width: fit-content;
+	margin-left: 10px;
 }
 
 ol {
@@ -124,4 +133,23 @@ textarea {
 #myButton:active {
 	position: relative;
 	top: 2px;
+}
+
+@media (max-width:750px) {
+    .container {
+		display: flex;
+		flex-direction: column;
+	}
+	.bloccol {
+		margin-top: 10px;
+	}
+	.title {
+		margin-left: 10px;
+	}
+	#list {
+		width: 96vw;
+	}
+	#myButton {
+		left: 45vw;
+	}
 }
