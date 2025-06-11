@@ -159,7 +159,6 @@ function recoverAll() {
             tasks[i].value = localStorage.getItem(tasks[i].id)
             textareas[i].value = localStorage.getItem(textareas[i].id)
             checkboxes[i].checked = localStorage.getItem(checkboxes[i].id) === "true"
-            console.log(localStorage.getItem(checkboxes[i].id))
 
             const thisTask = tasks[i]
 
