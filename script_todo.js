@@ -15,11 +15,16 @@ button.addEventListener("click", () => {
 
     const input = document.getElementById(`customtask${lineNumber}`);
     const inputarea = document.getElementById(`text${lineNumber}`);
+    const checkbox = document.getElementById(`done${currentli}`);
 
     input.addEventListener("input", () => {
         let currentli = input.id.match(/(\d+)/);
         const title = document.getElementById(`title${currentli[0]}`);
         title.textContent = input.value
+        saveAll()
+    })
+
+    checkbox.addEventListener("change", () => {
         saveAll()
     })
 
@@ -42,7 +47,7 @@ function addLine(currentli) {
     ol.insertAdjacentHTML("beforeend",
         `<li id="line${currentli}">
             <input placeholder="écrire" class="ecrire" id="customtask${currentli}"> 
-            <input type="checkbox"> 
+            <input type="checkbox" class="checkbox" id="done${currentli}"> 
             <button onclick="deleteLine(${currentli});deleteTextarea(${currentli})"> 🗑️​ </button> 
             <button onclick="displayTextarea(${currentli})"> > </button>
         </li>`
@@ -117,11 +122,13 @@ function saveAll() {
 
     const tasks = document.querySelectorAll(".ecrire")
     const textareas = document.querySelectorAll(".area")
+    const checkboxes = document.querySelectorAll(".checkbox")
 
     if (lineQuantity>0) {
         for (i=0 ; i<lineQuantity ; i++) {
             localStorage.setItem(tasks[i].id, tasks[i].value)
             localStorage.setItem(textareas[i].id, textareas[i].value)
+            localStorage.setItem(checkboxes[i].id, checkboxes[i].checked)
         }
     }
 }
@@ -146,17 +153,24 @@ function recoverAll() {
 
         const tasks = document.querySelectorAll(".ecrire")
         const textareas = document.querySelectorAll(".area")
+        const checkboxes = document.querySelectorAll(".checkbox")
 
         for (i=0 ; i<lineQuantity ; i++) {
             tasks[i].value = localStorage.getItem(tasks[i].id)
             textareas[i].value = localStorage.getItem(textareas[i].id)
+            checkboxes[i].checked = localStorage.getItem(checkboxes[i].id) === "true"
+            console.log(localStorage.getItem(checkboxes[i].id))
 
-            const thisTask = tasks [i]
+            const thisTask = tasks[i]
 
             thisTask.addEventListener("input", () => {
                 let currentli = thisTask.id.match(/(\d+)/);
                 const title = document.getElementById(`title${currentli[0]}`);
                 title.textContent = thisTask.value
+                saveAll()
+            })
+
+            checkboxes[i].addEventListener("change", () => {
                 saveAll()
             })
 
